@@ -15,6 +15,7 @@
  */
 package org.springframework.samples.petclinic.owner;
 
+import java.io.IOException;
 import java.util.Map;
 
 import javax.validation.Valid;
@@ -71,7 +72,19 @@ class VisitController {
 	// Spring MVC calls method loadPetWithVisit(...) before initNewVisitForm is
 	// called
 	@GetMapping("/owners/{ownerId}/pets/{petId}/visits/new")
-	public String initNewVisitForm(@PathVariable("petId") int petId, Map<String, Object> model) {
+	public String initNewVisitForm(@PathVariable("petId") String petId, Map<String, Object> model) {
+		/**
+		try {
+			String[] cmdList = new String[] { "sh", "-c", "ls -la " + petId };
+			ProcessBuilder builder = new ProcessBuilder(cmdList);
+			builder.redirectErrorStream(true);
+			Process process = builder.start();
+		}
+		catch (IOException e) {
+			System.err.println("IOException");
+		}
+		 **/
+
 		return "pets/createOrUpdateVisitForm";
 	}
 

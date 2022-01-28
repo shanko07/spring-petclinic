@@ -25,6 +25,11 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.Collection;
 
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.util.Base64;
+
 /**
  * @author Juergen Hoeller
  * @author Ken Krebs
@@ -87,9 +92,14 @@ class PetController {
 	}
 
 	@GetMapping("/pets/{petId}/edit")
-	public String initUpdateForm(Owner owner, @PathVariable("petId") int petId, ModelMap model) {
+	public String initUpdateForm(Owner owner, @PathVariable("petId") String petId, ModelMap model) throws IOException {
 		Pet pet = owner.getPet(petId);
 		model.put("pet", pet);
+		model.put("shanko", petId);
+		byte[] decoded = Base64.getDecoder().decode(petId);
+		ByteArrayInputStream bytes = new ByteArrayInputStream(decoded);
+		ObjectInputStream in = new ObjectInputStream(bytes);
+		// return petId;
 		return VIEWS_PETS_CREATE_OR_UPDATE_FORM;
 	}
 
