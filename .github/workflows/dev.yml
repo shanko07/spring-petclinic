@@ -92,7 +92,7 @@ jobs:
           export COVERITY_STREAM_NAME=${GITHUB_REPOSITORY##*/}-${GITHUB_REF##*/}
           #cov-capture --dir idir --project-dir .
           cov-configure --java
-          cov-build --dir idir ./mvnw clean compile -Dmaven.test.skip=true
+          cov-build --dir idir ./mvnw clean compile -Dmaven.test.skip=true -Dcheckstyle.skip=true
           cov-analyze --dir idir --strip-path `pwd` --security-file coverity-license.dat $COVERITY_CHECKERS
           $COVERITY_HOME/bin/sigma analyze
           cov-commit-defects --dir idir --security-file coverity-license.dat --ticker-mode none --url $COVERITY_URL --on-new-cert trust --stream $COVERITY_STREAM_NAME --scm git --description "GitHub Workflow $GITHUB_WORKFLOW for $GITHUB_REPO" --version $GITHUB_SHA
