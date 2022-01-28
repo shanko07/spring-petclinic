@@ -24,9 +24,10 @@ class WelcomeController {
 
 	@GetMapping("/")
 	public String welcome() {
-		int x = 0;
+		int x = 1;
 		int y = 10 / x;
 		return "welcome";
+		// comments
 	}
 
 }
