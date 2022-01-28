@@ -5,7 +5,7 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building..'
-                ./mvnw clean compile -Dmaven.skip.test=true
+                sh './mvnw clean compile -Dmaven.skip.test=true'
             }
         }
         stage('Test') {
